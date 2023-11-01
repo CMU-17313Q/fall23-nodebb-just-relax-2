@@ -49,3 +49,4 @@ The `predict` function returns a prediction result dictionary containing the fol
 
 - `good_employee`: numpy.int64, 1 if the student is predicted to be a good employee, 0 otherwise. 
     - **Dev Note:** If needed, this value is castable to an int via `.item()`
+    

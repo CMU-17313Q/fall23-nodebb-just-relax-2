@@ -20,6 +20,7 @@ Career.register = async (req, res) => {
             num_past_internships: userData.num_past_internships,
         };
 
+        // eslint-disable-next-line max-len
         userCareerData.prediction = Math.round(Math.random()); // TODO: Change this line to do call and retrieve actual candidate success prediction from the model instead of using a random number
 
         await user.setCareerData(req.uid, userCareerData);

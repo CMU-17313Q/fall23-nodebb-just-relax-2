@@ -21,16 +21,16 @@ Career.register = async (req, res) => {
             num_past_internships: userData.num_past_internships,
         };
 
-        // eslint-disable-next-line max-len
-        userCareerData.prediction = Math.round(Math.random()); // TODO: Change this line to do call and retrieve actual candidate success prediction from the model instead of using a random number
-        // try {
-        //     const apiUrl = ‘link to the deployed service‘;
-        //     const response = await axios.get(apiUrl, { params: userCareerData });
-        //     userCareerData.prediction = String(response.data.good_employee);
-        // } catch (err) {
-        //     console.error(err);
-        //     return res.status(500).json({ error: 'An error occurred while calling the ML microservice'});
-        // }
+        try {
+            const apiUrl = 'https://fall23-nodebb-just-relax-2-yce6hjwzza-uc.a.run.app/predict';
+            const queryParams = new URLSearchParams(userCareerData);
+            const response = await fetch(`${apiUrl}?${queryParams}`);
+            const responseData = await response.json();
+            userCareerData.prediction = String(responseData.good_employee);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'An error occurred while calling the ML microservice' });
+        }
 
         await user.setCareerData(req.uid, userCareerData);
         db.sortedSetAdd('users:career', req.uid, req.uid);

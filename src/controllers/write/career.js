@@ -1,5 +1,6 @@
 'use strict';
 
+// const axios = require('axios');
 const helpers = require('../helpers');
 const user = require('../../user');
 const db = require('../../database');
@@ -21,19 +22,15 @@ Career.register = async (req, res) => {
         };
 
         // eslint-disable-next-line max-len
-        userCareerData.prediction = Math.round(Math.random()); 
-        // TODO: Change this line to do call and retrieve actual candidate success prediction from the model instead of using a random number
-        
-        // const axios = require('axios');
-
+        userCareerData.prediction = Math.round(Math.random()); // TODO: Change this line to do call and retrieve actual candidate success prediction from the model instead of using a random number
         // try {
         //     const apiUrl = ‘link to the deployed service‘;
         //     const response = await axios.get(apiUrl, { params: userCareerData });
         //     userCareerData.prediction = String(response.data.good_employee);
         // } catch (err) {
         //     console.error(err);
-        //     return res.status(500).json({ error: 'An error occurred while calling the ML microservice' });
-        //     }
+        //     return res.status(500).json({ error: 'An error occurred while calling the ML microservice'});
+        // }
 
         await user.setCareerData(req.uid, userCareerData);
         db.sortedSetAdd('users:career', req.uid, req.uid);

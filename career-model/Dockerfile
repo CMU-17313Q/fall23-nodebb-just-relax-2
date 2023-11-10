@@ -1,0 +1,21 @@
+FROM python:3.11
+
+WORKDIR /career-model
+
+# Install any additional dependencies
+COPY requirements.txt .
+
+RUN pip install flask
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+
+
+EXPOSE 8000
+
+ENV PORT 8000
+
+ENV HOSTNAME "0.0.0.0"
+
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "8000"]
